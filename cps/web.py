@@ -114,8 +114,13 @@ except ImportError:
                 #   may cause issues with badly named pages in cbz/cbr files
 try:
     import cPickle
+    print('Using native cPickle')
 except ImportError:
-    import pickle as cPickle
+    try:
+        import pickle as cPickle
+        print('Using Pickle')
+    except ImportError:
+        print('Pickle import error')
 
 try:
     from urllib.parse import quote
@@ -200,8 +205,15 @@ lm.anonymous_user = ub.Anonymous
 app.secret_key = os.getenv('SECRET_KEY', 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT')
 db.setup_db()
 
-with open(os.path.join(config.get_main_dir, 'cps/translations/iso639.pickle'), 'rb') as f:
+try:
+    f = open(os.path.join(config.get_main_dir, 'cps/translations/iso639.pickle'), 'rb')
     language_table = cPickle.load(f)
+    f.close()
+    print('Length of table: ' + str(len(language_table)))
+    for key, value in language_table.items():
+        print (key)
+except Exception as e:
+    print(e)
 
 
 def is_gdrive_ready():
