@@ -1,0 +1,10 @@
+{
+    "short_name": "Calibre",
+    "name": "Calibre web",
+    "icons": {
+
+    },
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#000000"
+}
